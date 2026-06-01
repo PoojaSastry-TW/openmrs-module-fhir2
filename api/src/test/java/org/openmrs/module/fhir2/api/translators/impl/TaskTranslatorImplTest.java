@@ -86,11 +86,19 @@ public class TaskTranslatorImplTest {
 	
 	private static final FhirTask.TaskStatus OPENMRS_NEW_TASK_STATUS = FhirTask.TaskStatus.ACCEPTED;
 	
+	private static final Task.TaskStatus FHIR_TASK_STATUS_DRAFT = Task.TaskStatus.DRAFT;
+	
+	private static final Task.TaskStatus FHIR_TASK_STATUS_INPROGRESS = Task.TaskStatus.INPROGRESS;
+	
 	private static final Task.TaskStatus FHIR_TASK_STATUS_READY = Task.TaskStatus.READY;
 	
 	private static final Task.TaskStatus FHIR_TASK_STATUS_ONHOLD = Task.TaskStatus.ONHOLD;
 	
 	private static final Task.TaskStatus FHIR_TASK_STATUS_CANCELLED = Task.TaskStatus.CANCELLED;
+	
+	private static final FhirTask.TaskStatus OPENMRS_TASK_STATUS_DRAFT = FhirTask.TaskStatus.DRAFT;
+	
+	private static final FhirTask.TaskStatus OPENMRS_TASK_STATUS_INPROGRESS = FhirTask.TaskStatus.INPROGRESS;
 	
 	private static final FhirTask.TaskStatus OPENMRS_TASK_STATUS_READY = FhirTask.TaskStatus.READY;
 	
@@ -245,6 +253,12 @@ public class TaskTranslatorImplTest {
 		assertThat(result, notNullValue());
 		assertThat(result.getStatus(), equalTo(FHIR_TASK_STATUS));
 		
+		task.setStatus(OPENMRS_TASK_STATUS_DRAFT);
+		assertThat(taskTranslator.toFhirResource(task).getStatus(), equalTo(FHIR_TASK_STATUS_DRAFT));
+		
+		task.setStatus(OPENMRS_TASK_STATUS_INPROGRESS);
+		assertThat(taskTranslator.toFhirResource(task).getStatus(), equalTo(FHIR_TASK_STATUS_INPROGRESS));
+		
 		task.setStatus(OPENMRS_TASK_STATUS_READY);
 		assertThat(taskTranslator.toFhirResource(task).getStatus(), equalTo(FHIR_TASK_STATUS_READY));
 		
@@ -264,6 +278,12 @@ public class TaskTranslatorImplTest {
 		
 		assertThat(result, notNullValue());
 		assertThat(result.getStatus(), equalTo(OPENMRS_TASK_STATUS));
+		
+		task.setStatus(FHIR_TASK_STATUS_DRAFT);
+		assertThat(taskTranslator.toOpenmrsType(task).getStatus(), equalTo(OPENMRS_TASK_STATUS_DRAFT));
+		
+		task.setStatus(FHIR_TASK_STATUS_INPROGRESS);
+		assertThat(taskTranslator.toOpenmrsType(task).getStatus(), equalTo(OPENMRS_TASK_STATUS_INPROGRESS));
 		
 		task.setStatus(FHIR_TASK_STATUS_READY);
 		assertThat(taskTranslator.toOpenmrsType(task).getStatus(), equalTo(OPENMRS_TASK_STATUS_READY));
